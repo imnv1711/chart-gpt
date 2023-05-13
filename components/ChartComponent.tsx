@@ -37,7 +37,13 @@ interface ChartProps {
 //TODO: dynamic keys instead of default value
 export const Chart: React.FC<ChartProps> = ({ data, chartType }) => {
   console.log("Chart data:", data, "Chart type:", chartType);
-
+  if(!isNaN(data[0].name) && data[0].name.length>9){
+    for (var a=0;a<data.length;a++){
+          var date = new Date(data[a].name* 1000);
+          var formattedTime = date + '';
+          data[a].name=formattedTime.slice(0,25);
+    }
+  }
   const renderChart = () => {
     chartType = chartType.toLowerCase();
     switch (chartType) {
